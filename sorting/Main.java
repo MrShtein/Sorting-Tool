@@ -4,6 +4,10 @@ import java.util.*;
 
 public class Main {
     public static void main(final String[] args) {
+        String dataType = new ArgumentParser(args).parseArgument();
+
+
+
         Scanner scanner = new Scanner(System.in);
         ArrayList<Long> numberList = new ArrayList<>();
         long maxValue = 0L;
