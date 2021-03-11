@@ -4,8 +4,17 @@ public class Data {
 
     private long length;
     private String maxLengthElem;
+    private long maxDigit;
     private long occurrenceCount;
     private long occurrenceCountInPercent;
+
+    public long getMaxDigit() {
+        return maxDigit;
+    }
+
+    public void setMaxDigit(long maxDigit) {
+        this.maxDigit = maxDigit;
+    }
 
     public void setLength(long length) {
         this.length = length;

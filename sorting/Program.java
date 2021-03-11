@@ -1,6 +1,5 @@
 package sorting;
 
-import java.lang.reflect.AnnotatedArrayType;
 import java.util.ArrayList;
 
 public class Program {
@@ -23,6 +22,7 @@ public class Program {
                 break;
             case "word":
                 workWithWords();
+                break;
             default:
                 throw new IllegalArgumentException("Something wrong with data");
         }
@@ -31,21 +31,25 @@ public class Program {
     private void workWithLong() {
         LongReader longReader = new LongReader();
         ArrayList<Long> digits = longReader.readData();
-
-
+        DigitsAnalyzer digitsAnalyzer = new DigitsAnalyzer(digits);
+        DataPrinter dataPrinter = new DataPrinter(digitsAnalyzer.analyzeDigits());
+        dataPrinter.printDigits();
     }
 
     private void workWithLines() {
         LineReader lineReader = new LineReader();
         ArrayList<String> lines = lineReader.readData();
         StringAnalyzer stringAnalyzer = new StringAnalyzer(lines);
-
-
+        DataPrinter dataPrinter = new DataPrinter(stringAnalyzer.analyzeString());
+        dataPrinter.printLines();
     }
 
     private void workWithWords() {
         WordReader wordReader = new WordReader();
         ArrayList<String> words = wordReader.readData();
+        StringAnalyzer stringAnalyzer = new StringAnalyzer(words);
+        DataPrinter dataPrinter = new DataPrinter(stringAnalyzer.analyzeString());
+        dataPrinter.printWords();
     }
 
 

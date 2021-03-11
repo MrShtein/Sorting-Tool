@@ -2,19 +2,18 @@ package sorting;
 
 import java.util.ArrayList;
 
-public class StringAnalyzer {
+public class DigitsAnalyzer {
 
-    private final ArrayList<String> data;
+    private final ArrayList<Long> data;
 
-    public StringAnalyzer(ArrayList<String> data) {
+    public DigitsAnalyzer(ArrayList<Long> data) {
         this.data = data;
     }
 
-
-    public Data analyzeString() {
+    public Data analyzeDigits() {
         Data analyzedData = new Data();
         analyzedData.setLength(getLength());
-        analyzedData.setMaxLengthElem(maxLengthItem());
+        analyzedData.setMaxDigit(maxDigit());
         analyzedData.setOccurrenceCount(occurTimesInInput(analyzedData));
         analyzedData.setOccurrenceCountInPercent(occurTimesInPercent(analyzedData));
         return analyzedData;
@@ -24,20 +23,20 @@ public class StringAnalyzer {
         return data.size();
     }
 
-    private String maxLengthItem() {
-        String maxLength = "";
-        for (String item : data) {
-            if (maxLength.length() < item.length()) {
-                maxLength = item;
+    private long maxDigit() {
+        long maxDigit = 0L;
+        for (Long digit : data) {
+            if (maxDigit < digit) {
+                maxDigit = digit;
             }
         }
-        return maxLength;
+        return maxDigit;
     }
 
     private long occurTimesInInput(Data infoObj) {
         long times = 0L;
-        for (String item : data) {
-            if (item.equals(infoObj.getMaxLengthElem())) {
+        for (Long digit : data) {
+            if (digit == infoObj.getMaxDigit()) {
                 times++;
             }
         }
@@ -47,6 +46,5 @@ public class StringAnalyzer {
     private long occurTimesInPercent(Data infoObj) {
         return infoObj.getOccurrenceCount() * 100 / data.size();
     }
-
 
 }
