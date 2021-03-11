@@ -3,7 +3,7 @@ package sorting;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class WordReader implements DataReader<ArrayList<String>>{
+public class WordReader implements DataReader{
 
     @Override
     public ArrayList<String> readData() {
