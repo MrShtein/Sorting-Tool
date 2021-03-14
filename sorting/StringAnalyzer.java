@@ -11,13 +11,13 @@ public class StringAnalyzer {
     }
 
 
-    public Data analyzeString() {
-        Data analyzedData = new Data();
-        analyzedData.setLength(getLength());
-        analyzedData.setMaxLengthElem(maxLengthItem());
-        analyzedData.setOccurrenceCount(occurTimesInInput(analyzedData));
-        analyzedData.setOccurrenceCountInPercent(occurTimesInPercent(analyzedData));
-        return analyzedData;
+    public DataForAnalyze analyzeString() {
+        DataForAnalyze analyzedDataForAnalyze = new DataForAnalyze();
+        analyzedDataForAnalyze.setLength(getLength());
+        analyzedDataForAnalyze.setMaxLengthElem(maxLengthItem());
+        analyzedDataForAnalyze.setOccurrenceCount(occurTimesInInput(analyzedDataForAnalyze));
+        analyzedDataForAnalyze.setOccurrenceCountInPercent(occurTimesInPercent(analyzedDataForAnalyze));
+        return analyzedDataForAnalyze;
     }
 
     private long getLength() {
@@ -34,7 +34,7 @@ public class StringAnalyzer {
         return maxLength;
     }
 
-    private long occurTimesInInput(Data infoObj) {
+    private long occurTimesInInput(DataForAnalyze infoObj) {
         long times = 0L;
         for (String item : data) {
             if (item.equals(infoObj.getMaxLengthElem())) {
@@ -44,7 +44,7 @@ public class StringAnalyzer {
         return times;
     }
 
-    private long occurTimesInPercent(Data infoObj) {
+    private long occurTimesInPercent(DataForAnalyze infoObj) {
         return infoObj.getOccurrenceCount() * 100 / data.size();
     }
 

@@ -10,13 +10,13 @@ public class DigitsAnalyzer {
         this.data = data;
     }
 
-    public Data analyzeDigits() {
-        Data analyzedData = new Data();
-        analyzedData.setLength(getLength());
-        analyzedData.setMaxDigit(maxDigit());
-        analyzedData.setOccurrenceCount(occurTimesInInput(analyzedData));
-        analyzedData.setOccurrenceCountInPercent(occurTimesInPercent(analyzedData));
-        return analyzedData;
+    public DataForAnalyze analyzeDigits() {
+        DataForAnalyze analyzedDataForAnalyze = new DataForAnalyze();
+        analyzedDataForAnalyze.setLength(getLength());
+        analyzedDataForAnalyze.setMaxDigit(maxDigit());
+        analyzedDataForAnalyze.setOccurrenceCount(occurTimesInInput(analyzedDataForAnalyze));
+        analyzedDataForAnalyze.setOccurrenceCountInPercent(occurTimesInPercent(analyzedDataForAnalyze));
+        return analyzedDataForAnalyze;
     }
 
     private long getLength() {
@@ -33,7 +33,7 @@ public class DigitsAnalyzer {
         return maxDigit;
     }
 
-    private long occurTimesInInput(Data infoObj) {
+    private long occurTimesInInput(DataForAnalyze infoObj) {
         long times = 0L;
         for (Long digit : data) {
             if (digit == infoObj.getMaxDigit()) {
@@ -43,7 +43,7 @@ public class DigitsAnalyzer {
         return times;
     }
 
-    private long occurTimesInPercent(Data infoObj) {
+    private long occurTimesInPercent(DataForAnalyze infoObj) {
         return infoObj.getOccurrenceCount() * 100 / data.size();
     }
 

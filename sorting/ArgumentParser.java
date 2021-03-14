@@ -9,7 +9,25 @@ public class ArgumentParser {
     }
 
     public String parseArgument() {
-        return args.length != 0 ? args[1] : "word";
+        if (args.length == 0) {
+            return "word";
+        } else {
+           if (findSortArg()) {
+               return "sortIntegers";
+           } else {
+               return args[1];
+           }
+        }
+
+    }
+
+    private boolean findSortArg() {
+        for (String item : args) {
+            if ("-sortIntegers".equals(item)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

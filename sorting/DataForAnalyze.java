@@ -1,6 +1,6 @@
 package sorting;
 
-public class Data {
+public class DataForAnalyze {
 
     private long length;
     private String maxLengthElem;

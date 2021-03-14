@@ -23,6 +23,9 @@ public class Program {
             case "word":
                 workWithWords();
                 break;
+            case "sortIntegers":
+                sortIntegers();
+                break;
             default:
                 throw new IllegalArgumentException("Something wrong with data");
         }
@@ -50,6 +53,14 @@ public class Program {
         StringAnalyzer stringAnalyzer = new StringAnalyzer(words);
         DataPrinter dataPrinter = new DataPrinter(stringAnalyzer.analyzeString());
         dataPrinter.printWords();
+    }
+
+    private void sortIntegers() {
+        LongReader longReader = new LongReader();
+        ArrayList<Long> digits = longReader.readData();
+        DigitSorter digitSorter = new DigitSorter(digits);
+        DataPrinter dataPrinter = new DataPrinter(digitSorter.handleData());
+        dataPrinter.printSortedDigits();
     }
 
 
