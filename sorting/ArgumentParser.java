@@ -12,22 +12,19 @@ public class ArgumentParser {
         if (args.length == 0) {
             return "word";
         } else {
-           if (findSortArg()) {
-               return "sortIntegers";
-           } else {
-               return args[1];
-           }
+           return chooseSortingType();
         }
 
     }
 
-    private boolean findSortArg() {
-        for (String item : args) {
-            if ("-sortIntegers".equals(item)) {
-                return true;
-            }
+    private String chooseSortingType() {
+        if ("-dataType".equals(args[0])) {
+            return args[1];
+        } else if (args.length == 1) {
+            return "natural";
+        } else {
+            return args[1];
         }
-        return false;
     }
 
 }
