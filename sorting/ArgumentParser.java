@@ -1,5 +1,7 @@
 package sorting;
 
+import java.util.Arrays;
+
 public class ArgumentParser {
 
     private final String[] args;
@@ -8,23 +10,38 @@ public class ArgumentParser {
         this.args = args;
     }
 
-    public String parseArgument() {
-        if (args.length == 0) {
+    public DataForChooseWay parseArgument() {
+        DataForChooseWay data = new DataForChooseWay();
+        data.setSortingType(getSortType());
+        data.setDataType(getType());
+
+        return data;
+    }
+
+    private String getType() {
+        String temp = "-dataType";
+        int position = Arrays.asList(args).indexOf("-dataType");
+        if (position == -1) {
             return "word";
         } else {
-           return chooseSortingType();
+            if (position + 1 < args.length && !args[position + 1].startsWith("-")) {
+                return args[position + 1];
+            } else {
+                return "word";
+            }
         }
-
     }
 
-    private String chooseSortingType() {
-        if ("-dataType".equals(args[0])) {
-            return args[1];
-        } else if (args.length == 1) {
+    private String getSortType() {
+        int position = Arrays.asList(args).indexOf("-sortingType");
+        if (position == -1) {
             return "natural";
         } else {
-            return args[1];
+            if (position + 1 < args.length && !args[position + 1].startsWith("-")) {
+                return args[position + 1];
+            } else {
+                return "natural";
+            }
         }
     }
-
 }

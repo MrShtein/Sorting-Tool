@@ -1,47 +1,94 @@
 package sorting;
 
-public class DataPrinter {
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
-    private final DataForAnalyze dataForAnalyze;
-    private final SortedData sortedData;
+public class DataPrinter<T> {
 
-    public DataPrinter(DataForAnalyze dataForAnalyze) {
-        this.dataForAnalyze = dataForAnalyze;
-        this.sortedData = null;
+    private final ArrayList<T> sortedData;
+    private final String sortType;
+    private final long length;
+
+    public DataPrinter(String sortType, ArrayList<T> data, Long length) {
+        this.sortType = sortType;
+        this.sortedData = data;
+        this.length = length;
     }
 
-    public DataPrinter(SortedData sortedData) {
-        this.sortedData = sortedData;
-        this.dataForAnalyze = null;
+    public void chooseAndPrintForString() {
+        if ("natural".equals(sortType)) {
+            printStringNaturalSort();
+        } else {
+            printStringCountSort();
+        }
     }
 
-    public void printLines() {
-        System.out.printf("Total lines: %d.\n", dataForAnalyze.getLength());
-        System.out.printf("The longest line:\n%s\n", dataForAnalyze.getMaxLengthElem());
-        System.out.printf("(%d time(s), %d%%).", dataForAnalyze.getOccurrenceCount(), dataForAnalyze.getOccurrenceCountInPercent());
+    public void chooseAndPrintForWord() {
+        if ("natural".equals(sortType)) {
+            printWordNaturalSort();
+        } else {
+            printStringCountSort();
+        }
     }
 
-    public void printWords() {
-        System.out.printf("Total words: %d.\n", dataForAnalyze.getLength());
-        System.out.printf("The longest word: %s (%d time(s), %d%%)",
-                dataForAnalyze.getMaxLengthElem(), dataForAnalyze.getOccurrenceCount(), dataForAnalyze.getOccurrenceCountInPercent());
+    private void printWordNaturalSort() {
+        printPreparatoryData();
+        printArrayList();
     }
 
-    public void printDigits() {
-        System.out.printf("Total numbers: %d.\n", dataForAnalyze.getLength());
-        System.out.printf("The greatest number: %d (%d time(s), %d%%)",
-                dataForAnalyze.getMaxDigit(), dataForAnalyze.getOccurrenceCount(), dataForAnalyze.getOccurrenceCountInPercent());
+    public void chooseAndPrintForDigits() {
+        if ("natural".equals(sortType)) {
+            printDigitsNaturalSort();
+        } else {
+            printDigitsCountSort();
+        }
     }
 
-    public void printSortedDigits() {
-        System.out.printf("Total numbers: %d.\n", sortedData.getTotal());
-        System.out.print("Sorted data: ");
-        printArray();
+    private void printDigitsNaturalSort() {
+       printPreparatoryData();
+       printArrayList();
     }
 
-    private void printArray() {
-        for (Long digit : sortedData.getSortedData()) {
+    private void printArrayList() {
+        for (Object digit : sortedData) {
             System.out.print(digit + " ");
         }
     }
+
+    private void printLinesArrayList() {
+        for (Object digit : sortedData) {
+            System.out.println(digit);
+        }
+    }
+
+    private void printDigitsCountSort() {
+        System.out.printf("Total numbers: %d.\n", length);
+        for (Object item : sortedData) {
+            DigitItem digitItem = (DigitItem) item;
+            System.out.printf("%d: %d time(s), %d%%\n",
+                    digitItem.getValue(), digitItem.getOccurrence(), Math.round(digitItem.getOccurrenceInPercent()));
+        }
+    }
+
+    private void printStringNaturalSort() {
+        printPreparatoryData();
+        System.out.println();
+        printLinesArrayList();
+    }
+
+    private void printPreparatoryData() {
+        System.out.printf("Total numbers: %d.\n", length);
+        System.out.print("Sorted data: ");
+    }
+
+    private void printStringCountSort() {
+        System.out.printf("Total numbers: %d.\n", length);
+        for (Object item : sortedData) {
+            StringItem strItem = (StringItem) item;
+            System.out.printf("%s: %d time(s), %d%%\n",
+                    strItem.getValue(), strItem.getOccurrence(), Math.round(strItem.getOccurrenceInPercent()));
+        }
+    }
+
+
 }

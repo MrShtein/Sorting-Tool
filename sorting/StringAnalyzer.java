@@ -1,6 +1,8 @@
 package sorting;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class StringAnalyzer {
 
@@ -11,41 +13,27 @@ public class StringAnalyzer {
     }
 
 
-    public DataForAnalyze analyzeString() {
-        DataForAnalyze analyzedDataForAnalyze = new DataForAnalyze();
-        analyzedDataForAnalyze.setLength(getLength());
-        analyzedDataForAnalyze.setMaxLengthElem(maxLengthItem());
-        analyzedDataForAnalyze.setOccurrenceCount(occurTimesInInput(analyzedDataForAnalyze));
-        analyzedDataForAnalyze.setOccurrenceCountInPercent(occurTimesInPercent(analyzedDataForAnalyze));
-        return analyzedDataForAnalyze;
-    }
-
-    private long getLength() {
-        return data.size();
-    }
-
-    private String maxLengthItem() {
-        String maxLength = "";
-        for (String item : data) {
-            if (maxLength.length() < item.length()) {
-                maxLength = item;
+    public ArrayList<StringItem> analyzeString() {
+        ArrayList<StringItem> analyzedData = new ArrayList<>();
+        HashMap<String, Long> longHashMap = new HashMap<>();
+        for (String str : data) {
+            if (longHashMap.containsKey(str)) {
+                longHashMap.put(str, longHashMap.get(str) + 1);
+            } else {
+                longHashMap.put(str, 1L);
             }
         }
-        return maxLength;
-    }
 
-    private long occurTimesInInput(DataForAnalyze infoObj) {
-        long times = 0L;
-        for (String item : data) {
-            if (item.equals(infoObj.getMaxLengthElem())) {
-                times++;
-            }
+        for (Map.Entry<String, Long> item : longHashMap.entrySet()) {
+            StringItem strItem = new StringItem(item.getValue(), item.getKey(), occurTimesInPercent(item.getValue()));
+            analyzedData.add(strItem);
         }
-        return times;
+
+        return analyzedData;
     }
 
-    private long occurTimesInPercent(DataForAnalyze infoObj) {
-        return infoObj.getOccurrenceCount() * 100 / data.size();
+    private double occurTimesInPercent(long countOccurrence) {
+        return ((double) (countOccurrence * 100)) / data.size();
     }
 
 

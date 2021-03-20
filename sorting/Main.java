@@ -3,7 +3,7 @@ package sorting;
 import java.util.*;
 
 public class Main {
-    public static void main(final String[] args) {
+    public static void main(String[] args) {
 
         Program program = new Program(args);
         program.run();
