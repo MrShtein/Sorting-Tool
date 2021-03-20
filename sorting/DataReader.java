@@ -1,9 +1,10 @@
 package sorting;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
-public interface DataReader <T> {
+public interface DataReader<T> {
 
-    T readData();
+    T readData() throws IOException;
 
 }
