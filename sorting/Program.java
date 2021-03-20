@@ -1,7 +1,7 @@
 package sorting;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 public class Program {
 
@@ -12,20 +12,22 @@ public class Program {
     }
 
     public void run() {
-        DataForChooseWay argument = new ArgumentParser(args).parseArgument();
-
-        switch (argument.getDataType()) {
-            case "long":
-                workWithLong(argument.getSortingType());
-                break;
-            case "line":
-                workWithLines(argument.getSortingType());
-                break;
-            case "word":
-                workWithWords(argument.getSortingType());
-                break;
-            default:
-                throw new IllegalArgumentException("Something wrong with data");
+        ArgumentParser argument = new ArgumentParser(args);
+        try {
+            DataForChooseWay data = argument.parseArgument();
+            switch (data.getDataType()) {
+                case "long":
+                    workWithLong(data.getSortingType());
+                    break;
+                case "line":
+                    workWithLines(data.getSortingType());
+                    break;
+                case "word":
+                    workWithWords(data.getSortingType());
+                    break;
+            }
+        } catch (IllegalArgumentException | InputMismatchException e) {
+            System.out.println(e.getMessage());
         }
     }
 

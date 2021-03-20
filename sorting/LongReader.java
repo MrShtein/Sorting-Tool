@@ -8,8 +8,15 @@ public class LongReader implements DataReader<ArrayList<Long>> {
     public ArrayList<Long> readData() {
         ArrayList<Long> digitsList = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNextLong()) {
-            digitsList.add(scanner.nextLong());
+
+        while (scanner.hasNext()) {
+            String next = scanner.next();
+            try {
+                Long digit = Long.parseLong(next);
+                digitsList.add(digit);
+            } catch (IllegalArgumentException e) {
+                System.out.printf("\"%s\" is not a long. It will be skipped.", next);
+            }
         }
         return digitsList;
     }
