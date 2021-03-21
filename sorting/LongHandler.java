@@ -3,11 +3,17 @@ package sorting;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class LongReader implements DataReader<ArrayList<Long>> {
-    @Override
-    public ArrayList<Long> readData() {
+public class LongHandler {
+
+    private final String data;
+
+    public LongHandler(String data) {
+        this.data = data;
+    }
+
+    public ArrayList<Long> handleData() {
         ArrayList<Long> digitsList = new ArrayList<>();
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(data);
 
         while (scanner.hasNext()) {
             String next = scanner.next();

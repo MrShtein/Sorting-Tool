@@ -1,6 +1,5 @@
 package sorting;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DataPrinter<T> {
@@ -8,86 +7,95 @@ public class DataPrinter<T> {
     private final ArrayList<T> sortedData;
     private final String sortType;
     private final long length;
+    protected StringBuilder sb;
 
     public DataPrinter(String sortType, ArrayList<T> data, Long length) {
         this.sortType = sortType;
         this.sortedData = data;
         this.length = length;
+        sb = new StringBuilder();
     }
 
-    public void chooseAndPrintForString() {
+    public String chooseAndHandleForString() {
         if ("natural".equals(sortType)) {
-            printStringNaturalSort();
+            return prepareStringNaturalSort();
         } else {
-            printStringCountSort();
+            return prepareStringCountSort();
         }
     }
 
-    public void chooseAndPrintForWord() {
+    public String chooseAndPrintForWord() {
         if ("natural".equals(sortType)) {
-            printWordNaturalSort();
+            return prepareWordNaturalSort();
         } else {
-            printStringCountSort();
+            return prepareStringCountSort();
         }
     }
 
-    private void printWordNaturalSort() {
-        printPreparatoryData();
-        printArrayList();
+    private String prepareWordNaturalSort() {
+        preparePreparatoryData();
+        prepareArrayList();
+        return sb.toString();
     }
 
-    public void chooseAndPrintForDigits() {
+    public String chooseAndPrepareForDigits() {
         if ("natural".equals(sortType)) {
-            printDigitsNaturalSort();
+            return prepareDigitsNaturalSort();
         } else {
-            printDigitsCountSort();
+            return prepareDigitsCountSort();
         }
     }
 
-    private void printDigitsNaturalSort() {
-       printPreparatoryData();
-       printArrayList();
+    private String prepareDigitsNaturalSort() {
+        preparePreparatoryData();
+        prepareArrayList();
+        return sb.toString();
     }
 
-    private void printArrayList() {
+    private void prepareArrayList() {
         for (Object digit : sortedData) {
-            System.out.print(digit + " ");
+            sb.append(digit)
+                    .append(" ");
         }
     }
 
     private void printLinesArrayList() {
         for (Object digit : sortedData) {
-            System.out.println(digit);
+            sb.append(digit)
+                    .append("\n");
         }
     }
 
-    private void printDigitsCountSort() {
-        System.out.printf("Total numbers: %d.\n", length);
+    private String prepareDigitsCountSort() {
+        sb.append(String.format("Total numbers: %d.\n", length));
         for (Object item : sortedData) {
             DigitItem digitItem = (DigitItem) item;
-            System.out.printf("%d: %d time(s), %d%%\n",
-                    digitItem.getValue(), digitItem.getOccurrence(), Math.round(digitItem.getOccurrenceInPercent()));
+            sb.append(String.format("%d: %d time(s), %d%%\n",
+                    digitItem.getValue(), digitItem.getOccurrence(), Math.round(digitItem.getOccurrenceInPercent())));
         }
+        return sb.toString();
     }
 
-    private void printStringNaturalSort() {
-        printPreparatoryData();
-        System.out.println();
+    private String prepareStringNaturalSort() {
+        preparePreparatoryData();
+        sb.append("\n");
         printLinesArrayList();
+        return sb.toString();
     }
 
-    private void printPreparatoryData() {
-        System.out.printf("Total numbers: %d.\n", length);
-        System.out.print("Sorted data: ");
+    private void preparePreparatoryData() {
+        sb.append(String.format("Total numbers: %d.\n", length))
+                .append("Sorted data: ");
     }
 
-    private void printStringCountSort() {
-        System.out.printf("Total numbers: %d.\n", length);
+    private String prepareStringCountSort() {
+        sb.append(String.format("Total numbers: %d.\n", length));
         for (Object item : sortedData) {
             StringItem strItem = (StringItem) item;
-            System.out.printf("%s: %d time(s), %d%%\n",
-                    strItem.getValue(), strItem.getOccurrence(), Math.round(strItem.getOccurrenceInPercent()));
+            sb.append(String.format("%s: %d time(s), %d%%\n",
+                    strItem.getValue(), strItem.getOccurrence(), Math.round(strItem.getOccurrenceInPercent())));
         }
+        return sb.toString();
     }
 
 
