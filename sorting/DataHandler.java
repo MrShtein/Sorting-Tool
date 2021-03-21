@@ -2,14 +2,14 @@ package sorting;
 
 import java.util.ArrayList;
 
-public class DataPrinter<T> {
+public class DataHandler<T> {
 
     private final ArrayList<T> sortedData;
     private final String sortType;
     private final long length;
     protected StringBuilder sb;
 
-    public DataPrinter(String sortType, ArrayList<T> data, Long length) {
+    public DataHandler(String sortType, ArrayList<T> data, Long length) {
         this.sortType = sortType;
         this.sortedData = data;
         this.length = length;

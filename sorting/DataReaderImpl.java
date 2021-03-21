@@ -13,7 +13,7 @@ public class DataReaderImpl implements DataReader<String>{
     }
 
     public String readData() throws IOException {
-        if ("-inputFile".equals(readerName)) {
+        if (!readerName.isEmpty()) {
             return new FileReader(readFrom).readData();
         } else {
             return new ConsoleReader(readFrom).readData();

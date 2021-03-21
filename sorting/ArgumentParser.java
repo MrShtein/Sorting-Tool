@@ -16,8 +16,8 @@ public class ArgumentParser {
         data.setSortingType(getSortType());
         data.setDataType(getType());
 
-        String inputFile = getFileAddr("input");
-        String outputFile = getFileAddr("output");
+        String inputFile = getFileAddr("inputFile");
+        String outputFile = getFileAddr("outputFile");
 
         if (!inputFile.isEmpty()) {
             data.setInputFile(inputFile);

@@ -20,13 +20,13 @@ public class Program {
 
             switch (args.getDataType()) {
                 case "long":
-                    workWithLong(args.getSortingType(), data);
+                    workWithLong(args.getSortingType(), data, args.getOutputFile());
                     break;
                 case "line":
-                    workWithLines(args.getSortingType(), data);
+                    workWithLines(args.getSortingType(), data, args.getOutputFile());
                     break;
                 case "word":
-                    workWithWords(args.getSortingType(), data);
+                    workWithWords(args.getSortingType(), data, args.getOutputFile());
                     break;
             }
         } catch (IllegalArgumentException | InputMismatchException | IOException e) {
@@ -34,24 +34,28 @@ public class Program {
         }
     }
 
-    private void workWithLong(String sortType, String data) {
+    private void workWithLong(String sortType, String data, String output) throws IOException {
         LongHandler longHandler = new LongHandler(data);
         ArrayList<Long> digits = longHandler.handleData();
         ArrayList<DigitItem> analyzedData = new DigitsAnalyzer(digits).analyzeDigits();
 
         if ("natural".equals(sortType)) {
             ArrayList<Long> sortedData = new DigitSorter(analyzedData).handleDataForNaturalSort();
-            DataPrinter<Long> dataPrinter = new DataPrinter(sortType, sortedData, (long) digits.size());
+            DataHandler<Long> dataPrinter = new DataHandler(sortType, sortedData, (long) digits.size());
             String dataForPrint = dataPrinter.chooseAndPrepareForDigits();
+            DataWriter dataWriter = new DataWriter(output, dataForPrint);
+            dataWriter.writeData();
         } else {
             ArrayList<DigitItem> sortedData = new DigitSorter(analyzedData).handleDataForCountSort();
-            DataPrinter<DigitItem> dataPrinter = new DataPrinter(sortType, sortedData, (long) digits.size());
+            DataHandler<DigitItem> dataPrinter = new DataHandler(sortType, sortedData, (long) digits.size());
             String dataForPrint = dataPrinter.chooseAndPrepareForDigits();
+            DataWriter dataWriter = new DataWriter(output, dataForPrint);
+            dataWriter.writeData();
         }
 
     }
 
-    private void workWithLines(String sortType, String data) {
+    private void workWithLines(String sortType, String data, String output) throws IOException {
         LineHandler lineHandler = new LineHandler(data);
         ArrayList<String> lines = lineHandler.handleData();
         StringAnalyzer stringAnalyzer = new StringAnalyzer(lines);
@@ -59,16 +63,21 @@ public class Program {
 
         if ("natural".equals(sortType)) {
             ArrayList<String> sortedData = new StringSorter(stringsList).handleDataForNaturalSort();
-            DataPrinter<String> dataPrinter = new DataPrinter(sortType, sortedData, (long) lines.size());
+            DataHandler<String> dataPrinter = new DataHandler(sortType, sortedData, (long) lines.size());
             String dataForPrint = dataPrinter.chooseAndHandleForString();
+            DataWriter dataWriter = new DataWriter(output, dataForPrint);
+            dataWriter.writeData();
+
         } else {
             ArrayList<StringItem> sortedData = new StringSorter(stringsList).handleDataForCountSort();
-            DataPrinter<StringItem> dataPrinter = new DataPrinter(sortType, sortedData, (long) lines.size());
+            DataHandler<StringItem> dataPrinter = new DataHandler(sortType, sortedData, (long) lines.size());
             String dataForPrint = dataPrinter.chooseAndHandleForString();
+            DataWriter dataWriter = new DataWriter(output, dataForPrint);
+            dataWriter.writeData();
         }
     }
 
-    private void workWithWords(String sortType, String data) {
+    private void workWithWords(String sortType, String data, String output) throws IOException {
         WordHandler wordHandler = new WordHandler(data);
         ArrayList<String> lines = wordHandler.readData();
         StringAnalyzer stringAnalyzer = new StringAnalyzer(lines);
@@ -76,12 +85,16 @@ public class Program {
 
         if ("natural".equals(sortType)) {
             ArrayList<String> sortedData = new StringSorter(stringsList).handleDataForNaturalSort();
-            DataPrinter<String> dataPrinter = new DataPrinter(sortType, sortedData, (long) lines.size());
+            DataHandler<String> dataPrinter = new DataHandler(sortType, sortedData, (long) lines.size());
             String dataForPrint = dataPrinter.chooseAndPrintForWord();
+            DataWriter dataWriter = new DataWriter(output, dataForPrint);
+            dataWriter.writeData();
         } else {
             ArrayList<StringItem> sortedData = new StringSorter(stringsList).handleDataForCountSort();
-            DataPrinter<StringItem> dataPrinter = new DataPrinter(sortType, sortedData, (long) lines.size());
+            DataHandler<StringItem> dataPrinter = new DataHandler(sortType, sortedData, (long) lines.size());
             String dataForPrint = dataPrinter.chooseAndPrintForWord();
+            DataWriter dataWriter = new DataWriter(output, dataForPrint);
+            dataWriter.writeData();
         }
     }
 
